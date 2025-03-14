@@ -1,5 +1,3 @@
-import jest from 'eslint-plugin-jest';
-
 jest.mock('firebase-admin', () => {
     return {
         initializeApp: jest.fn(),
