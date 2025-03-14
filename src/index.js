@@ -44,10 +44,11 @@ app.get('/tasks', async (req, res) => {
 // Create a task
 app.post('/tasks', async (req, res) => {
   try {
-    const { title } = req.body;
+    const { id, title } = req.body;
     
     const taskRef = db.collection('tasks').doc();
     const task = {
+      id: id ?? taskRef.id,
       title,
       completed: false,
       createdAt: new Date().toISOString()
@@ -55,10 +56,7 @@ app.post('/tasks', async (req, res) => {
     
     await taskRef.set(task);
     
-    res.status(201).json({
-      id: taskRef.id,
-      ...task
-    });
+    res.status(201).json(task);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -112,3 +110,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
