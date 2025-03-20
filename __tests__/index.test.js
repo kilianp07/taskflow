@@ -1,5 +1,12 @@
 const request = require('supertest');
-const app = require('../src/index');
+const { app, server } = require('../src/index');
+
+afterAll((done) => {
+    server.close(() => {
+        console.log("Server closed after tests");
+        done();
+    });
+});
 
 describe('API Tasks', () => {
     it('📌 GET /tasks - Récupérer toutes les tâches', async () => {

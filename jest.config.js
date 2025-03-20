@@ -6,4 +6,5 @@ module.exports = {
     coverageReporters: ["json", "lcov", "text", "clover"],
     testTimeout: 30000,
     coveragePathIgnorePatterns: ["/node_modules/", "/.coverage/"],
+    reporters: ["default", ["jest-junit", { outputDirectory: ".coverage", outputName: "junit.xml" }]]
 };
