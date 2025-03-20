@@ -6,8 +6,10 @@
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon src/index.js",
     "test": "jest",
+    "test:ci": "jest --ci --runInBand --coverage",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "build": "npm prune --production && mkdir -p build && cp -R src build && cp package.json build && cp package-lock.json build && cp .env build"
   },
   "dependencies": {
     "cors": "^2.8.5",
