@@ -44,12 +44,15 @@ app.get('/tasks', async (req, res) => {
 // Create a task
 app.post('/tasks', async (req, res) => {
   try {
-    const { id, title } = req.body;
+    const { id, title, description, dueDate, color } = req.body;
     
     const taskRef = db.collection('tasks').doc();
     const task = {
       id: id ?? taskRef.id,
       title,
+      description,
+      dueDate,
+      color,
       completed: false,
       createdAt: new Date().toISOString()
     };
