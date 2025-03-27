@@ -47,11 +47,16 @@ app.post('/tasks', async (req, res) => {
     const { id, title } = req.body;
     
     const taskRef = db.collection('tasks').doc();
+    const now = new Date().toISOString();
     const task = {
       id: id ?? taskRef.id,
       title,
+      description: req.body.description ?? '',
       completed: false,
-      createdAt: new Date().toISOString()
+      dueDate: req.body.dueDate ?? '',
+      color: req.body.color ?? '',
+      createdAt: now,
+      updatedAt: now
     };
     
     await taskRef.set(task);
@@ -75,6 +80,7 @@ app.patch('/tasks/:id', async (req, res) => {
       return res.status(404).json({ error: 'Task not found' });
     }
     
+    updates.updatedAt = new Date().toISOString();
     await taskRef.update(updates);
     
     const updatedTask = await taskRef.get();
